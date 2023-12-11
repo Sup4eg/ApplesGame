@@ -27,31 +27,6 @@ const float ROCKS_SIZE = 30.f;
 const int NUM_APPLES = 20;
 const int NUM_ROCKS = 7;
 
-
-//generate one rectangle shape
-void initNewRectangleShape(sf::RectangleShape &shape, const float& playerX, const float& playerY, const float &size) {
-  shape.setSize(sf::Vector2f(size, size));
-  shape.setFillColor(sf::Color::Red);
-  shape.setOrigin(size / 2.f, size / 2.f);
-  shape.setPosition(playerX, playerY);
-}
-
-//generate shapes for array. This function can be used for different poligons: circle, trianble...
-void initNewCircleShapesWithRandomPosition(sf::CircleShape* shapes, int arrLength,  float* shapesX, float* shapesY,  const float &size, const sf::Color color = sf::Color::Green, unsigned int points = 100) {
-
-  for (int i = 0; i < arrLength; ++i) {
-	shapesX[i] = rand() / (float)(RAND_MAX)*SCREEN_WIDTH;
-	shapesY[i] = rand() / (float)(RAND_MAX)*SCREEN_HEIGTH;
-
-	shapes[i].setRadius(size / 2.f);
-	shapes[i].setFillColor(color);
-	shapes[i].setPointCount(points);
-	shapes[i].setOrigin(size / 2.f, size / 2.f);
-	shapes[i].setPosition(shapesX[i], shapesY[i]);
-  }
-
-}
-
 //Understand player direction
 void definePlayerDirection(int &playerDirection) {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
@@ -99,7 +74,7 @@ void restartGame(sf::RectangleShape playerShape, float& playerX, float& playerY,
   window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGTH), GAME_NAME);
 }
 
-bool checkIsPlayerOut(float& playerX, float& playerY) {
+bool checkIsPlayerOut(const float& playerX, const float& playerY) {
   if (playerX - PLAYER_SIZE / 2.f < 0.f || playerX + PLAYER_SIZE / 2.f > SCREEN_WIDTH
 	|| playerY - PLAYER_SIZE / 2.f < 0.f || playerY + PLAYER_SIZE / 2.f > SCREEN_HEIGTH) {
 	return true;
@@ -109,8 +84,8 @@ bool checkIsPlayerOut(float& playerX, float& playerY) {
 
 void defineAppleCollisions(const float &playerX, const float &playerY, float * applesX, float * applesY, int &numEatenApples, sf::CircleShape* applesShape) {
   for (int i = 0; i < NUM_APPLES; ++i) {
-	float dx = playerX - applesX[i];
-	float dy = playerY - applesY[i];
+	const float dx = playerX - applesX[i];
+	const float dy = playerY - applesY[i];
 	if (pow(dx, 2) + pow(dy, 2) <= pow(((APPLES_SIZE + PLAYER_SIZE) / 2.f), 2)) {
 	  ++numEatenApples;
 	  //Hide apples and rerender in with new coordinates
@@ -122,9 +97,10 @@ void defineAppleCollisions(const float &playerX, const float &playerY, float * a
 }
 
 bool isRockCollision(const float& playerX, const float& playerY, float* rocksX, float* rocksY) {
+  //Need iterator
   for (int i = 0; i < NUM_ROCKS; ++i) {
-	float dx = playerX - rocksX[i];
-	float dy = playerY - rocksY[i];
+	const float dx = playerX - rocksX[i];
+	const float dy = playerY - rocksY[i];
 	if (pow(dx, 2) + pow(dy, 2) <= pow(((ROCKS_SIZE + PLAYER_SIZE) / 2.f), 2)) {
 	  return true;
 	}
@@ -151,19 +127,43 @@ int main()
 
   //Init player shape
   sf::RectangleShape playerShape;
-  initNewRectangleShape(playerShape, playerX, playerY, PLAYER_SIZE);
+  playerShape.setSize(sf::Vector2f(PLAYER_SIZE, PLAYER_SIZE));
+  playerShape.setFillColor(sf::Color::Red);
+  playerShape.setOrigin(PLAYER_SIZE / 2.f, PLAYER_SIZE / 2.f);
+  playerShape.setPosition(playerX, playerY);
 
   //Init apples
   float applesX[NUM_APPLES];
   float applesY[NUM_APPLES];
   sf::CircleShape applesShape[NUM_APPLES];
-  initNewCircleShapesWithRandomPosition(applesShape, NUM_APPLES, applesX, applesY, APPLES_SIZE);
+
+  for (int i = 0; i < NUM_APPLES; ++i) {
+	applesX[i] = rand() / (float)(RAND_MAX)*SCREEN_WIDTH;
+	applesY[i] = rand() / (float)(RAND_MAX)*SCREEN_HEIGTH;
+
+	applesShape[i].setRadius(APPLES_SIZE / 2.f);
+	applesShape[i].setFillColor(sf::Color::Green);
+	applesShape[i].setPointCount(100);
+	applesShape[i].setOrigin(APPLES_SIZE / 2.f, APPLES_SIZE / 2.f);
+	applesShape[i].setPosition(applesX[i], applesY[i]);
+  }
 
   //Init rocks
   float rocksX[NUM_ROCKS];
   float rocksY[NUM_ROCKS];
   sf::CircleShape rocksShape[NUM_ROCKS];
-  initNewCircleShapesWithRandomPosition(rocksShape, NUM_ROCKS, rocksX, rocksY, ROCKS_SIZE, sf::Color::Magenta, 3);
+
+  for (int i = 0; i < NUM_ROCKS; ++i) {
+	rocksX[i] = rand() / (float)(RAND_MAX)*SCREEN_WIDTH;
+	rocksY[i] = rand() / (float)(RAND_MAX)*SCREEN_HEIGTH;
+
+	rocksShape[i].setRadius(ROCKS_SIZE / 2.f);
+	rocksShape[i].setFillColor(sf::Color::Magenta);
+	rocksShape[i].setPointCount(3);
+	rocksShape[i].setOrigin(ROCKS_SIZE / 2.f, ROCKS_SIZE / 2.f);
+	rocksShape[i].setPosition(rocksX[i], rocksY[i]);
+  }
+
 
   int numEatenApples = 0;
 
@@ -210,13 +210,13 @@ int main()
 	window.clear();
 	playerShape.setPosition(playerX, playerY);
 
-	//Rerender apples
-	for (int i = 0; i < NUM_APPLES; ++i) {
-	  window.draw(applesShape[i]);
+	//Render apples
+	for (const auto &appleShape: applesShape) {
+	  window.draw(appleShape);
 	}
-	//Rerender rocks
-	for (int i = 0; i < NUM_ROCKS; ++i) {
-	  window.draw(rocksShape[i]);
+	//Render rocks
+	for (const auto &rockShape: rocksShape) {
+	  window.draw(rockShape);
 	}
 	//Rerender player
 	window.draw(playerShape);
