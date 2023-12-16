@@ -4,7 +4,7 @@
 
 namespace ApplesGame {
 
-  Position2D getRandomPositionInScreen(float screenWidth, float screenHeight) {
+  Position2D getRandomPositionInScreen(const int& screenWidth, const int& screenHeight) {
 	Position2D result;
 	result.x = rand() / (float)(RAND_MAX)*screenWidth;
 	result.y = rand() / (float)(RAND_MAX)*screenHeight;
@@ -35,10 +35,22 @@ namespace ApplesGame {
 	sprite.setScale(scale);
   }
 
-  void setSpriteRelativeOrigin(sf::Sprite& sprite, float originX, float originY)
+  void setSpriteRelativeOrigin(sf::Sprite& sprite)
   {
 	sf::FloatRect spriteRect = sprite.getLocalBounds();
-	sprite.setOrigin(originX * spriteRect.width, originY * spriteRect.height);
+	sprite.setOrigin(spriteRect.left + spriteRect.width / 2.f, spriteRect.top + spriteRect.height / 2.f);
+  }
+
+  void setTextRelativeOrigin(sf::Text& text)
+  {
+	sf::FloatRect textRect = text.getLocalBounds();
+	text.setOrigin(textRect.left + textRect.width / 2.f, textRect.top + textRect.height / 2.f);
+  }
+
+  float getAngle(float angle)
+  {
+	const float sfmlCoefficient = -1.f; //because SFML window has inverted axis
+	return angle * sfmlCoefficient;
   }
 
 }

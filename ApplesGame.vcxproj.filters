@@ -25,6 +25,21 @@
     <ClCompile Include="Game.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="ControlHint.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSoundBuffer.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSound.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -47,6 +62,21 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlHint.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSound.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSoundBuffer.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

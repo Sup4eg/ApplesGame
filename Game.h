@@ -1,10 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 #include "Player.h"
 #include "Apple.h"
 #include "Rock.h"
+#include "ControlHint.h"
 #include "Math.h"
 #include "Player.h"
+#include "GameSoundBuffer.h"
+#include "GameOver.h"
+#include "Score.h"
 
 namespace ApplesGame {
   
@@ -22,16 +28,21 @@ namespace ApplesGame {
 	int numEatenApples = 0;
 	bool isGameFinished = false;
 	float timeSinceGameFinish = 0.f;
-	sf::RectangleShape background;
+
+	//Texts
+	sf::Font font;
+	GameOver gameOver;
+	Score score;
+	ControlHint controlHint;
 
 	//Resources
 	sf::Texture playerTexture;
+	sf::Texture appleTexture;
+	sf::Texture rockTexture;
 
+	//Sound buf
+	GameSoundBuffer soundBuffer;
   };
-
-  void definedirection(Game& game);
-
-  void defineNewPlayerCoordinates(Game& game, const float& deltaTime);
 
   void restartGame(Game& game);
 

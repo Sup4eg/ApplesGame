@@ -2,6 +2,7 @@
 
 namespace sf {
   class Sprite;
+  class Text;
 }
 
 namespace ApplesGame {
@@ -14,7 +15,7 @@ namespace ApplesGame {
 
   typedef Vector2D Position2D;
 
-  Position2D getRandomPositionInScreen(float screenWidth, float screenHeight);
+  Position2D getRandomPositionInScreen(const int& screenWidth, const int& screenHeight);
 
   bool isPlayerCollideWithScreen(Position2D position, float playerSize, float screenWidth, float screenHeight);
 
@@ -24,5 +25,9 @@ namespace ApplesGame {
 
   void setSpriteSize(sf::Sprite& sprite, float desiredWidth, float desiredHeight);
 
-  void setSpriteRelativeOrigin(sf::Sprite& sprite, float originX, float originY);
+  void setSpriteRelativeOrigin(sf::Sprite& sprite);
+
+  void setTextRelativeOrigin(sf::Text& text);
+
+  float getAngle(float angle);
 }

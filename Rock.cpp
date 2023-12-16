@@ -1,16 +1,23 @@
 #include <SFML/Graphics.hpp>
 #include "Rock.h"
 #include "Constants.h"
+#include "Game.h"
 
 namespace ApplesGame {
 
-  void initRock(Rock& rock) {
+  void initRock(Rock& rock, const Game& game) {
 	//Init rocks
 	rock.position = getRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGTH);
-	rock.shape.setSize(sf::Vector2f(ROCKS_SIZE, ROCKS_SIZE));
-	rock.shape.setFillColor(sf::Color::Magenta);
-	rock.shape.setOrigin(ROCKS_SIZE / 2.f, ROCKS_SIZE / 2.f);
-	rock.shape.setPosition(rock.position.x, rock.position.y);
+
+	rock.sprite.setTexture(game.rockTexture);
+	setSpriteSize(rock.sprite, ROCKS_SIZE, ROCKS_SIZE);
+	setSpriteRelativeOrigin(rock.sprite);
+  }
+
+  void drawRock(Rock& rock, sf::RenderWindow& window)
+  {
+	rock.sprite.setPosition(rock.position.x, rock.position.y);
+	window.draw(rock.sprite);
   }
 
 }

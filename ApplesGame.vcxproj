@@ -160,11 +160,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="ControlHint.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameSoundBuffer.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerSound.cpp" />
     <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -173,10 +178,15 @@
   <ItemGroup>
     <ClInclude Include="Apple.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="ControlHint.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerSound.h" />
     <ClInclude Include="Rock.h" />
+    <ClInclude Include="GameSoundBuffer.h" />
+    <ClInclude Include="Score.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
