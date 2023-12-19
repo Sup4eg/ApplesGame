@@ -40,7 +40,6 @@ namespace ApplesGame {
 
 	  definePlayerDirection(game.player);
 	  rotatePlayer(game.player);
-	  reflectPlayer(game.player);
 
 	  defineNewPlayerCoordinates(game.player, deltaTime);
 

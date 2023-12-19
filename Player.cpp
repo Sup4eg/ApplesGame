@@ -21,35 +21,13 @@ namespace ApplesGame {
 
   void rotatePlayer(Player& player) {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-	  player.sprite.setRotation(getAngle(0.f));
+	if (player.direction == PlayerDirection::Left) {
+	  setSpriteSize(player.sprite, -PLAYER_SIZE, PLAYER_SIZE);
+	  player.sprite.setRotation(0.f);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-	  player.sprite.setRotation(getAngle(180.f));
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-	  player.sprite.setRotation(getAngle(90.f));
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-	  player.sprite.setRotation(getAngle(270.f));
-	}
-  }
-
-  void reflectPlayer(Player& player) {
-
-	auto playerScale = player.sprite.getScale();
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-	  player.sprite.setScale(fabs(playerScale.x), fabs(playerScale.y));
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-	  player.sprite.setScale(fabs(playerScale.x), -fabs(playerScale.y));
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-	  player.sprite.setScale(playerScale.x, fabs(playerScale.y));
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-	  player.sprite.setScale(playerScale.x, -fabs(playerScale.y));
+	else {
+	  setSpriteSize(player.sprite, PLAYER_SIZE, PLAYER_SIZE);
+	  player.sprite.setRotation((float) player.direction * getAngle(90.f));
 	}
   }
 
