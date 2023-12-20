@@ -6,6 +6,7 @@ namespace ApplesGame {
   struct PlayerSound {
 	sf::Sound appleEatSound;
 	sf::Sound deathSound;
+	sf::Sound applauseSound;
   };
 
   struct GameSoundBuffer;

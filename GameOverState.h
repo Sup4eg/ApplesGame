@@ -18,18 +18,19 @@ namespace ApplesGame {
 
   struct GameOverBackground {
 	sf::RectangleShape background;
+	sf::Color color = sf::Color::Red;
   };
 
-  struct GameOver {
+  struct GameOverState {
 
 	GameOverText text;
 	GameOverBackground background;
   };
 
-  void initGameOver(GameOver& gameOver, const Font & font);
-  void drawGameOver(const GameOver& gameOver, sf::RenderWindow& window);
+  void initGameOver(GameOverState& gameOverState, const Font & font);
+  void drawGameOverState(const GameOverState& gameOverState, sf::RenderWindow& window);
 
   //usage only this file
   static void initGameOverText(GameOverText & gameOverText, const Font& font);
-  static void initGameOverBackground(GameOverBackground & gameOverBackground);
+  static void initGameOverBackground(GameOverBackground & gameOverSBackground);
 }

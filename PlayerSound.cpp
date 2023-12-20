@@ -7,6 +7,7 @@ namespace ApplesGame {
   {
 	sound.deathSound.setBuffer(soundBuf.deathBuf);
 	sound.appleEatSound.setBuffer(soundBuf.appleEatBuf);
+	sound.applauseSound.setBuffer(soundBuf.applauseBuf);
   }
 
 }

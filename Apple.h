@@ -7,6 +7,7 @@ namespace ApplesGame {
   struct Apple {
 	Position2D position;
 	sf::Sprite sprite;
+	bool isHidden = false;
   };
 
   struct Game;

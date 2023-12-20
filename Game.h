@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -9,8 +9,10 @@
 #include "Math.h"
 #include "Player.h"
 #include "GameSoundBuffer.h"
-#include "GameOver.h"
+#include "GameOverState.h"
+#include "GameWinnedState.h"
 #include "Score.h"
+#include "Menu.h"
 
 namespace ApplesGame {
   
@@ -26,14 +28,22 @@ namespace ApplesGame {
 
 	//Global game data
 	int numEatenApples = 0;
-	bool isGameFinished = false;
 	float timeSinceGameFinish = 0.f;
+
+	//mask
+	// 0 bit - gameOver or gameWinned state
+	// 1 bit - open menu or closed menu
+	// 2 bit - isGameFinished true / false
+	//0 0 0
+	char gameState = 1 << 1; //open menu by default
 
 	//Texts
 	sf::Font font;
-	GameOver gameOver;
+	GameOverState gameOverState;
+	GameWinnedState gameWinnedState;
 	Score score;
 	ControlHint controlHint;
+	Menu menu;
 
 	//Resources
 	sf::Texture playerTexture;
@@ -42,7 +52,17 @@ namespace ApplesGame {
 
 	//Sound buf
 	GameSoundBuffer soundBuffer;
+
+	//regimes, no regimes by default
+	//mask
+	//0 0 0
+	//0 bit - acceleration true / false
+	//1 bit - final or infinite apples true /false
+	//2 bit - (user choice text for the menu, show apple regime text - 0 or acceleration regime text 1);
+	char regime = '\0';
   };
+
+  void chooseGameRegime(Menu& menu, Game& game);
 
   void restartGame(Game& game);
 

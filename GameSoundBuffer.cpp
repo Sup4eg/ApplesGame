@@ -8,6 +8,7 @@ namespace ApplesGame {
 	//Init sound buffers
 	assert(soundBuf.deathBuf.loadFromFile(RESOURCES_PATH + "/Death.wav"));
 	assert(soundBuf.appleEatBuf.loadFromFile(RESOURCES_PATH + "/AppleEat.wav"));
+	assert(soundBuf.applauseBuf.loadFromFile(RESOURCES_PATH + "/Applause.wav"));
   }
 
 }

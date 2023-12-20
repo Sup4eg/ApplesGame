@@ -34,10 +34,16 @@
     <ClCompile Include="PlayerSound.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="GameOver.cpp">
+    <ClCompile Include="GameOverState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWinnedState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,10 +79,16 @@
     <ClInclude Include="GameSoundBuffer.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="GameOver.h">
+    <ClInclude Include="GameOverState.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Score.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWinnedState.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

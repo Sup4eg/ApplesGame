@@ -30,8 +30,6 @@ namespace ApplesGame {
 
   void rotatePlayer(Player& player);
 
-  void reflectPlayer(Player& player);
-
   void defineNewPlayerCoordinates(Player& player, const float& deltaTime);
 
   void initPlayer(Player& player, const Game & game);

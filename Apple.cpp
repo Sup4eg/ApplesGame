@@ -6,6 +6,7 @@ namespace ApplesGame {
 
   void initApple(Apple& apple, const Game & game) {
 	//Init apples
+	apple.isHidden = false;
 	apple.position = getRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGTH);
 
 	apple.sprite.setTexture(game.appleTexture);
