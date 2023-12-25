@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Math.h"
 #include "Constants.h"
+#include "Math.h"
 
 namespace ApplesGame {
   
   using namespace sf;
+
 
   enum class ArrowType {
 	LEFT, 

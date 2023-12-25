@@ -10,7 +10,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <math.h>
 #include "Constants.h"
 #include "Game.h"
 

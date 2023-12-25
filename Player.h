@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Math.h"
 #include "Constants.h"
+#include "Math.h"
 #include "PlayerSound.h"
 
 namespace ApplesGame {
@@ -14,17 +14,18 @@ namespace ApplesGame {
 	Down
   };
 
+
+  struct Game;
+
   struct Player {
 	Position2D position;
 	float speed = INITIAL_SPEED;
 	PlayerDirection direction = PlayerDirection::Right;
 	sf::Sprite sprite;
-
 	PlayerSound sound;
   };
 
 
-  struct Game;
 
   void definePlayerDirection(Player& player);
 

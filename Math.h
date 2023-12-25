@@ -17,6 +17,8 @@ namespace ApplesGame {
 
   Position2D getRandomPositionInScreen(const int& screenWidth, const int& screenHeight);
 
+  int getRandomNumber(const int minN, const int maxN);
+
   bool isPlayerCollideWithScreen(Position2D position, float playerSize, float screenWidth, float screenHeight);
 
   bool isRectanglesCollide(Position2D rect1Position, Vector2D rect1Size, Position2D rect2Position, Vector2D rect2Size);

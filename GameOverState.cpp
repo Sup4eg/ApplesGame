@@ -1,6 +1,6 @@
 #include "GameOverState.h"
-#include "Math.h"
 #include "Constants.h"
+#include "Math.h"
 
 namespace ApplesGame {
 

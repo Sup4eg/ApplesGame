@@ -11,6 +11,11 @@ namespace ApplesGame {
 	return result;
   }
 
+  int getRandomNumber(const int minN, const int maxN)
+  {
+	return (rand() + minN) % (maxN - minN + 1);
+  }
+
   bool isPlayerCollideWithScreen(Position2D position, float playerSize, float screenWidth, float screenHeight) {
 	return (position.x - playerSize / 2.f < 0.f || position.x + playerSize / 2.f > screenWidth
 	  || position.y - playerSize / 2.f < 0.f || position.y + playerSize / 2.f > screenHeight);

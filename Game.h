@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <vector>
 
 #include "Player.h"
 #include "Apple.h"
@@ -16,12 +17,14 @@
 
 namespace ApplesGame {
   
+  using namespace std;
+
   struct Game {
 
 	Player player;
 
 	//Apples data
-	Apple apples[NUM_APPLES];
+	vector<Apple> apples;
 
 	//Rocks data
 	Rock rocks[NUM_ROCKS];

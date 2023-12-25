@@ -3,6 +3,7 @@
 
 namespace ApplesGame {
 
+
   struct Rock {
 	Position2D position;
 	sf::Sprite sprite;

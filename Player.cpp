@@ -9,7 +9,7 @@ namespace ApplesGame {
 	player.speed = INITIAL_SPEED;
 	player.direction = PlayerDirection::Right;
 
-	// init plyaer sprite
+	// init player sprite
 	player.sprite.setTexture(game.playerTexture);
 	player.sprite.setRotation(getAngle(0.f));
 	setSpriteSize(player.sprite, PLAYER_SIZE, PLAYER_SIZE);

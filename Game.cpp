@@ -35,8 +35,12 @@ namespace ApplesGame {
   void restartGame(Game& game) {
 	initPlayer(game.player, game);
 
-	for (int i = 0; i < NUM_APPLES; ++i) {
-	  initApple(game.apples[i], game);
+	const int numApples = getRandomNumber(1, 50);
+	game.apples.resize(numApples);
+
+
+	for (auto& apple : game.apples) {
+	  initApple(apple, game);
 	}
 
 	for (int i = 0; i < NUM_ROCKS; ++i) {
@@ -79,9 +83,12 @@ namespace ApplesGame {
 
 	  defineNewPlayerCoordinates(game.player, deltaTime);
 
+
+	  const auto numApples = game.apples.size();
+
 	  //Find player collision with apples
-	  for (int i = 0; i < NUM_APPLES; ++i) {
-		if (isCirclesCollide(game.player.position, PLAYER_SIZE / 2.f, game.apples[i].position, APPLES_SIZE / 2.f)) {
+	  for (auto & apple : game.apples) {
+		if (isCirclesCollide(game.player.position, PLAYER_SIZE / 2.f, apple.position, APPLES_SIZE / 2.f)) {
 		  ++game.numEatenApples;
 
 		  //update score here
@@ -100,14 +107,14 @@ namespace ApplesGame {
 
 		  if (!(game.regime & 1 << 1)) {
 			//final number of apples
-			game.apples[i].position = getRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGTH);
+			apple.position = getRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGTH);
 		  }
 		  else {
-			game.apples[i].position = { 0.f, 0.f };
-			game.apples[i].isHidden = true;
+			apple.position = { 0.f, 0.f };
+			apple.isHidden = true;
 
 			//Win state
-			if (game.numEatenApples == NUM_APPLES) {
+			if (game.numEatenApples == numApples) {
 			  game.gameState |= 1 | (1 << 2); //finish game, WIN state
 			  game.timeSinceGameFinish = 0;
 			  game.player.sound.applauseSound.play();
@@ -153,9 +160,9 @@ namespace ApplesGame {
 	drawPlayer(game.player, window);
 
 	//Render apples
-	for (int i = 0; i < NUM_APPLES; ++i) {
-	  if (!game.apples[i].isHidden) {
-		drawApple(game.apples[i], window);
+	for (auto& apple : game.apples) {
+	  if (!apple.isHidden) {
+		drawApple(apple, window);
 	  }
 	}
 
