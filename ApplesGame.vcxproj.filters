@@ -46,6 +46,9 @@
     <ClCompile Include="GameWinnedState.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="RecordTable.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -91,5 +94,6 @@
     <ClInclude Include="GameWinnedState.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="RecordTable.h" />
   </ItemGroup>
 </Project>

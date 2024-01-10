@@ -31,5 +31,7 @@ namespace ApplesGame {
 
   void setTextRelativeOrigin(sf::Text& text);
 
+  void setTextRelativeOrigin(sf::Text& text, float boxX, float boxY);
+
   float getAngle(float angle);
 }

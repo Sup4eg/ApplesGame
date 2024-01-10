@@ -14,6 +14,7 @@
 #include "GameWinnedState.h"
 #include "Score.h"
 #include "Menu.h"
+#include "RecordTable.h"
 
 namespace ApplesGame {
   
@@ -22,6 +23,7 @@ namespace ApplesGame {
   struct Game {
 
 	Player player;
+	RecordTable recordTable;
 
 	//Apples data
 	vector<Apple> apples;
@@ -31,13 +33,15 @@ namespace ApplesGame {
 
 	//Global game data
 	int numEatenApples = 0;
+	int numApples = 0;
 	float timeSinceGameFinish = 0.f;
 
 	//mask
 	// 0 bit - gameOver or gameWinned state
 	// 1 bit - open menu or closed menu
-	// 2 bit - isGameFinished true / false
-	//0 0 0
+	// 2 bit - open record table
+	// 3 bit - isGameFinished true / false
+	//0 0 0 0
 	char gameState = 1 << 1; //open menu by default
 
 	//Texts

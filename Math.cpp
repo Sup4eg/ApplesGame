@@ -13,7 +13,7 @@ namespace ApplesGame {
 
   int getRandomNumber(const int minN, const int maxN)
   {
-	return (rand() + minN) % (maxN - minN + 1);
+	return minN + rand() % (maxN - minN + 1);
   }
 
   bool isPlayerCollideWithScreen(Position2D position, float playerSize, float screenWidth, float screenHeight) {
@@ -50,6 +50,12 @@ namespace ApplesGame {
   {
 	sf::FloatRect textRect = text.getLocalBounds();
 	text.setOrigin(textRect.left + textRect.width / 2.f, textRect.top + textRect.height / 2.f);
+  }
+
+  void setTextRelativeOrigin(sf::Text& text, float boxX, float boxY)
+  {
+	sf::FloatRect textRect = text.getLocalBounds();
+	text.setOrigin(textRect.left + (textRect.width - boxX) / 2.f, textRect.top + (textRect.height - boxY) / 2.f);
   }
 
   float getAngle(float angle)

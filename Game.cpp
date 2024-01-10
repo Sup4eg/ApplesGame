@@ -1,10 +1,9 @@
 #include <cassert>
-#include <iostream>
-
 #include "Game.h"
 
-
 namespace ApplesGame {
+
+  using namespace std;
 
   void chooseGameRegime(Menu& menu, Game& game)
   {
@@ -35,8 +34,8 @@ namespace ApplesGame {
   void restartGame(Game& game) {
 	initPlayer(game.player, game);
 
-	const int numApples = getRandomNumber(1, 50);
-	game.apples.resize(numApples);
+	game.numApples = getRandomNumber(1, 50);
+	game.apples.resize(game.numApples);
 
 
 	for (auto& apple : game.apples) {
@@ -49,7 +48,7 @@ namespace ApplesGame {
 
 	game.numEatenApples = 0;
 	updateScore(game.score, game);
-	game.gameState = 1 << 1;
+	game.gameState = 1 << 1; //set menu here
 	game.regime = '\0';
   }
 
@@ -69,6 +68,7 @@ namespace ApplesGame {
 	initControlHint(game.controlHint, game.font);
 	initGameSoundBuffer(game.soundBuffer);
 	initScore(game.score, game.font);
+	initRecordTable(game.recordTable, game.font);
 	restartGame(game);
   }
 
@@ -76,19 +76,27 @@ namespace ApplesGame {
 
 	//no need menu
 	// if game continues and no need to show menu
-	if (!((game.gameState & 1 << 2) || (game.gameState & 1 << 1))) {
+	if (!((game.gameState & 1 << 3) || (game.gameState & 1 << 1) || (game.gameState & 1 << 2))) {
 
 	  definePlayerDirection(game.player);
 	  rotatePlayer(game.player);
-
 	  defineNewPlayerCoordinates(game.player, deltaTime);
 
+	  //Part apples in case of finding only neighboring collision between player and apple
+	  auto appleBoundPtr = partition(begin(game.apples), end(game.apples), [& game](const Apple& apple) {
+		const Position2D playerPosition = game.player.position;
+		const Position2D applePosition = apple.position;
+		const float maxX = playerPosition.x + PLAYER_SIZE;
+		const float minX = playerPosition.x - PLAYER_SIZE;
+		const float maxY = playerPosition.y + PLAYER_SIZE;
+		const float minY = playerPosition.y - PLAYER_SIZE;
+		return (applePosition.x <= maxX && applePosition.x >= minX && applePosition.y <= maxY && applePosition.y >= minY);
+		});
 
-	  const auto numApples = game.apples.size();
 
 	  //Find player collision with apples
-	  for (auto & apple : game.apples) {
-		if (isCirclesCollide(game.player.position, PLAYER_SIZE / 2.f, apple.position, APPLES_SIZE / 2.f)) {
+	  for (int i = 0; i < distance(begin(game.apples), appleBoundPtr); ++i) {
+		if (isCirclesCollide(game.player.position, PLAYER_SIZE / 2.f, game.apples[i].position, APPLES_SIZE / 2.f)) {
 		  ++game.numEatenApples;
 
 		  //update score here
@@ -107,15 +115,15 @@ namespace ApplesGame {
 
 		  if (!(game.regime & 1 << 1)) {
 			//final number of apples
-			apple.position = getRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGTH);
+			game.apples[i].position = getRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGTH);
 		  }
 		  else {
-			apple.position = { 0.f, 0.f };
-			apple.isHidden = true;
+			game.apples[i].position = { 0.f, 0.f };
+			game.apples[i].isHidden = true;
 
 			//Win state
-			if (game.numEatenApples == numApples) {
-			  game.gameState |= 1 | (1 << 2); //finish game, WIN state
+			if (game.numEatenApples == game.numApples) {
+			  game.gameState |= 1 | (1 << 3); //finish game, WIN state
 			  game.timeSinceGameFinish = 0;
 			  game.player.sound.applauseSound.play();
 			}
@@ -134,7 +142,7 @@ namespace ApplesGame {
 
 	  //GAME OVER statements
 	  if (isCollideWithRocks || isPlayerCollideWithScreen(game.player.position, PLAYER_SIZE, SCREEN_WIDTH, SCREEN_HEIGTH)) {
-		game.gameState |= 1 << 2; //finish game, 0 bit is 0 by default, no need to set
+		game.gameState |= 1 << 3; //finish game, 0 bit is 0 by default, no need to set
 		game.timeSinceGameFinish = 0;
 
 		//play game over sound
@@ -143,12 +151,24 @@ namespace ApplesGame {
 	} else if (game.gameState & 1 << 1) {
 	  chooseGameRegime(game.menu, game);
 	}
-	else {
+	else if (game.gameState & 1 << 2) {
 	  if (game.timeSinceGameFinish <= PAUSE_LENGTH) {
 		game.timeSinceGameFinish += deltaTime;
 	  }
 	  else {
 		restartGame(game);
+	  }
+	}
+	else {
+	  if (game.timeSinceGameFinish <= PAUSE_LENGTH) {
+		game.timeSinceGameFinish += deltaTime;
+	  }
+	  else {
+		game.gameState |= 1 << 2;
+
+		TableRow& playerRow = findRowIf(game.recordTable.table.rows, "Player1");
+		playerRow.cols[1].value = to_string(game.numEatenApples);
+		game.timeSinceGameFinish = 0;
 	  }
 	}
   }
@@ -174,7 +194,7 @@ namespace ApplesGame {
 	drawControlHint(game.controlHint, window);
 
 	//if game finished
-	if (game.gameState & 1 << 2) {
+	if (game.gameState & 1 << 3) {
 	  if (game.gameState & 1) {
 		drawGameWinnedState(game.gameWinnedState, window);
 	  }
@@ -185,6 +205,9 @@ namespace ApplesGame {
 
 	drawScore(game.score, window);
 
+	if (game.gameState & 1 << 2) {
+	  drawRecordTable(game.recordTable, window);
+	}
 
 	//need menu
 	if (game.gameState & 1 << 1) {
