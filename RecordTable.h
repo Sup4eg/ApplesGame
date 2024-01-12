@@ -76,7 +76,7 @@ namespace ApplesGame {
 	const vector<string> playerNames = { "Kirill", "Dima", "Vasia", "Best player", "Sup4eg", "No name1", "No name2" };
 
 	//5 - 20 players
-	const int rowsNumber = getRandomNumber(5, 10);
+	const int rowsNumber = getRandomNumber(7, 12);
 	vector<TableRow> rows;
   };
 
